@@ -6,6 +6,7 @@ import { IndexRoute } from "@/routes/Index";
 import { Comp } from "@/routes/Comp";
 import { Goods } from "@/routes/Goods";
 import { About } from "@/routes/About";
+import { Dispatch } from "@/routes/Dispatch";
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/dispatches" element={<Dispatches />} />
+          <Route path="/dispatches/:slug" element={<Dispatch />} />
           <Route path="/index" element={<IndexRoute />} />
           <Route path="/comp" element={<Comp />} />
           <Route path="/goods" element={<Goods />} />

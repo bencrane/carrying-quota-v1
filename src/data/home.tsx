@@ -33,16 +33,12 @@ const leadData: CompanyComp[] = [
   { company: "Snowflake",   ote: 340, base: 160, commission: 180, equity: 180, segment: "Enterprise · Data" },
   { company: "Figma",       ote: 330, base: 155, commission: 175, equity: 145, segment: "Enterprise · Design" },
   { company: "Ramp",        ote: 310, base: 145, commission: 165, equity: 130, segment: "Mid-Market · Fintech" },
-  { company: "Notion",      ote: 265, base: 130, commission: 135, equity:  90, segment: "Enterprise · SaaS" },
-  { company: "Vanta",       ote: 255, base: 125, commission: 130, equity:  85, segment: "Mid-Market · Security" },
-  { company: "Salesforce",  ote: 245, base: 145, commission: 100, equity:  40, segment: "Mid-Market · CRM" },
-  { company: "Atlassian",   ote: 235, base: 125, commission: 110, equity:  55, segment: "Mid-Market · Dev Tools" },
 ];
 
 export const leadStory = {
   category: "The Index · Compensation",
   headline: "Where AEs make the most, right now.",
-  dek: "The top 10 paying enterprise sales seats in tech this quarter, ranked by P75 OTE. AI infra has pulled $100K of clear daylight on every other segment.",
+  dek: "The six highest-paying enterprise sales seats in tech this quarter, ranked by P75 OTE. AI infra has pulled $100K of clear daylight on every other segment.",
   byline: "CQ Research Desk",
   readTime: "8 min read",
   slug: "where-aes-make-the-most-q2-2026",
