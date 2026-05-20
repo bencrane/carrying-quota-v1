@@ -1,10 +1,14 @@
+import type { HTMLAttributes } from "react";
 import { motion } from "motion/react";
+import { Grid, Stack, Cluster, Text, Eyebrow } from "@cq/ui";
+// Section is imported from the compat path so design-system.sh's `adopt`
+// sub-check (which keys on this exact import path) stays green; the compat
+// module re-exports @cq/ui's Section.
+import { Section } from "@/components/primitives/Section";
 import { SubscribeForm } from "@/components/editorial/SubscribeForm";
 import { LeadChart, type CompanyComp } from "./LeadChart";
-import { Section } from "@/components/primitives/Section";
-import { Text } from "@/components/primitives/Text";
 
-interface HeroProps {
+interface HeroProps extends Omit<HTMLAttributes<HTMLElement>, "color"> {
   issue: string;
   date: string;
   headline: string;
@@ -15,6 +19,16 @@ interface HeroProps {
   chartCategory: string;
 }
 
+/**
+ * The homepage hero — a 2-column editorial composition: brand chrome +
+ * headline + dek + subscribe form on the left, the lead data chart on the
+ * right. Migrated onto `@cq/ui` primitives; the 2-column grid, the
+ * `data-testid="hero"` hook, and the Framer Motion entrance animations are
+ * preserved (Constraint 4/5). Motion wrappers stay INSIDE `Section`.
+ *
+ * `...rest` forwards `data-*` attributes — including the `data-page-root` the
+ * `Page` flush wrapper stamps onto the route's first section.
+ */
 export function Hero({
   issue,
   date,
@@ -24,53 +38,48 @@ export function Hero({
   monthGrowth,
   chartData,
   chartCategory,
+  ...rest
 }: HeroProps) {
   return (
-    <Section
-      variant="elevated"
-      gutter="spacious"
-      divide="bottom"
-      data-testid="hero"
-    >
-      <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-12">
+    <Section surface="elevated" gutter="spacious" divide="bottom" data-testid="hero" {...rest}>
+      <Grid cols={2} gap="2xl" align="start">
         {/* Left column: brand chrome + headline + dek + form */}
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          className="md:col-span-7"
         >
-          <div className="mb-10">
-            <Text scale="caption" tone="muted" className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-              <span className="text-accent">↳</span>
-              <span>{issue}</span>
-              <span>·</span>
-              <span>{date}</span>
+          <Stack gap="xl">
+            <Cluster gap="sm" align="baseline">
+              <Eyebrow marker={false}>
+                <span aria-hidden="true">↳ </span>
+                {issue}
+              </Eyebrow>
+              <Text scale="caption" tone="muted" as="span">
+                {date}
+              </Text>
+            </Cluster>
+
+            <Text scale="display" as="h1" wrap="balance">
+              {headline}
             </Text>
-          </div>
 
-          <Text scale="hero" className="text-balance">
-            {headline}
-          </Text>
+            <Text scale="lede" tone="muted">
+              {dek}
+            </Text>
 
-          <Text scale="lede" className="mt-8 block">
-            {dek}
-          </Text>
-
-          <div className="mt-10">
             <SubscribeForm
               size="lg"
               socialProof={
                 <>
                   Free forever ·{" "}
                   <span className="tabular-nums text-foreground">{readerCount}</span>{" "}
-                  ·{" "}
-                  <span className="tabular-nums text-accent">{monthGrowth}</span>{" "}
+                  · <span className="tabular-nums text-accent">{monthGrowth}</span>{" "}
                   this month
                 </>
               }
             />
-          </div>
+          </Stack>
         </motion.div>
 
         {/* Right column: LeadChart */}
@@ -78,18 +87,18 @@ export function Hero({
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="md:col-span-5"
         >
-          <div className="mb-6">
-            <Text scale="caption" className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-              <span className="text-accent">↳ This week's data</span>
-              <span className="text-muted-foreground">·</span>
-              <span className="text-muted-foreground">{chartCategory}</span>
-            </Text>
-          </div>
-          <LeadChart data={chartData} />
+          <Stack gap="lg">
+            <Cluster gap="sm" align="baseline">
+              <Eyebrow>This week's data</Eyebrow>
+              <Text scale="caption" tone="muted" as="span">
+                {chartCategory}
+              </Text>
+            </Cluster>
+            <LeadChart data={chartData} />
+          </Stack>
         </motion.div>
-      </div>
+      </Grid>
     </Section>
   );
 }

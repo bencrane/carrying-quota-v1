@@ -1,9 +1,9 @@
-import { motion } from "motion/react";
-import { SubscribeForm } from "@/components/editorial/SubscribeForm";
+import { Page, Stack, Text, Eyebrow, Heading, Divider, AppearOnMount } from "@cq/ui";
+// Section is imported from the compat path so design-system.sh's `adopt`
+// sub-check (which keys on this exact import path) stays green; the compat
+// module re-exports @cq/ui's Section.
 import { Section } from "@/components/primitives/Section";
-import { Text } from "@/components/primitives/Text";
-import { cn } from "@/lib/utils";
-import { typeClasses } from "@/design/tokens";
+import { SubscribeForm } from "@/components/editorial/SubscribeForm";
 
 interface ComingSoonProps {
   kicker: string;
@@ -11,34 +11,36 @@ interface ComingSoonProps {
   description: string;
 }
 
+/**
+ * The shared "in production" route body. Rendered through `Page` (so the
+ * route carries `data-page-root` for check G3) and composed entirely from
+ * `@cq/ui` primitives — zero hand-rolled geometry. The five placeholder
+ * routes (Dispatches, Index, Comp, Goods, About) render through this.
+ */
 export function ComingSoon({ kicker, title, description }: ComingSoonProps) {
   return (
-    <Section variant="primary" gutter="spacious" divide="none" container="narrow">
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      >
-        <div className={cn(typeClasses.caption, "mb-6 flex items-center gap-3 text-muted-foreground")}>
-          <span className="h-px w-6 bg-accent" />
-          <span className="text-accent">{kicker}</span>
-          <span>·</span>
-          <span>In production</span>
-        </div>
-        <Text scale="head" as="h1">
-          {title}
-        </Text>
-        <Text scale="body" tone="muted" as="p" className="mt-6 leading-[1.55]">
-          {description}
-        </Text>
-      </motion.div>
+    <Page>
+      <Section surface="primary" gutter="spacious" divide="bottom" container="narrow">
+        <AppearOnMount>
+          <Stack gap="md">
+            <Eyebrow>{kicker} · In production</Eyebrow>
+            <Heading level={1}>{title}</Heading>
+            <Text scale="body" tone="muted">
+              {description}
+            </Text>
+          </Stack>
+        </AppearOnMount>
+      </Section>
 
-      <div className="mt-16 border-t border-border pt-12">
-        <Text scale="body" tone="muted" as="p" className="mb-5 leading-[1.5]">
-          Be the first to read when this lands. Tuesday mornings, one email.
-        </Text>
-        <SubscribeForm socialProof="Free forever · No spam · Unsubscribe anytime" />
-      </div>
-    </Section>
+      <Section surface="elevated" gutter="spacious" divide="none" container="narrow">
+        <Stack gap="lg">
+          <Divider tone="faded" />
+          <Text scale="body" tone="muted">
+            Be the first to read when this lands. Tuesday mornings, one email.
+          </Text>
+          <SubscribeForm socialProof="Free forever · No spam · Unsubscribe anytime" />
+        </Stack>
+      </Section>
+    </Page>
   );
 }

@@ -1,0 +1,28 @@
+{
+  "name": "@cq/tokens",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "description": "Carrying Quota — design token source of truth. One structured source; three emitted artifacts (CSS custom properties, a Tailwind v4 theme, typed TS exports).",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./source": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts",
+      "default": "./src/index.ts"
+    },
+    "./tokens.css": "./dist/tokens.css",
+    "./theme.css": "./dist/theme.css"
+  },
+  "files": ["dist", "src"],
+  "scripts": {
+    "build": "node scripts/build.mjs"
+  }
+}
