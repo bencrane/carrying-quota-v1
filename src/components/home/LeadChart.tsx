@@ -19,7 +19,7 @@ export function LeadChart({ data }: LeadChartProps) {
   const [hovered, setHovered] = useState<number | null>(null);
 
   return (
-    <div className="relative">
+    <div data-testid="lead-chart" className="relative">
       <div className="grid grid-cols-[80px_1fr] items-baseline gap-x-4 pb-3 font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground md:grid-cols-[160px_1fr]">
         <span>Company</span>
         <span className="flex items-baseline justify-between">
