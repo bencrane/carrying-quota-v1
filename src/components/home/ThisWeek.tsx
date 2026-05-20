@@ -1,4 +1,8 @@
 import { Link } from "react-router";
+import { Section } from "@/components/primitives/Section";
+import { Text } from "@/components/primitives/Text";
+import { cn } from "@/lib/utils";
+import { typeClasses } from "@/design/tokens";
 
 export interface TocItem {
   category: string;   // "Dispatch" | "Index" | "Goods"
@@ -13,12 +17,14 @@ interface ThisWeekProps {
 
 export function ThisWeek({ items }: ThisWeekProps) {
   return (
-    <section className="border-b border-border px-6 py-12 md:px-10 md:py-16">
-      <div className="mb-6 flex items-baseline justify-between font-mono text-[10px] uppercase tracking-[0.15em]">
-        <span className="text-accent">↳ This week · {items.length} pieces</span>
+    <Section variant="primary" gutter="default" divide="bottom">
+      <div className="mb-6 flex items-baseline justify-between">
+        <Text scale="caption" tone="accent" as="span">
+          ↳ This week · {items.length} pieces
+        </Text>
         <Link
           to="/dispatches"
-          className="text-muted-foreground transition-colors duration-200 hover:text-foreground"
+          className={cn(typeClasses.caption, "text-muted-foreground transition-colors duration-200 hover:text-foreground")}
         >
           Archive →
         </Link>
@@ -29,21 +35,25 @@ export function ThisWeek({ items }: ThisWeekProps) {
           <li key={item.to}>
             <Link
               to={item.to}
-              className="group grid grid-cols-[90px_1fr_70px] items-baseline gap-4 py-4 transition-colors duration-200 md:grid-cols-[140px_1fr_90px] md:py-5"
+              className="group grid grid-cols-[90px_1fr_70px] items-baseline gap-4 pt-4 pb-4 transition-colors duration-200 md:grid-cols-[140px_1fr_90px] md:pt-5 md:pb-5"
             >
-              <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground">
+              <Text scale="caption" tone="muted" as="span">
                 {item.category}
-              </span>
-              <span className="font-serif text-[18px] leading-[1.25] tracking-[-0.01em] text-foreground transition-colors duration-200 group-hover:text-accent md:text-[22px]">
+              </Text>
+              <Text
+                scale="lede"
+                as="span"
+                className="leading-[1.25] tracking-[-0.01em] text-foreground transition-colors duration-200 group-hover:text-accent"
+              >
                 {item.title}
-              </span>
-              <span className="text-right font-mono text-[10px] uppercase tracking-[0.1em] text-muted-foreground">
+              </Text>
+              <Text scale="caption" tone="muted" as="span" className="text-right tracking-[0.1em]">
                 {item.date}
-              </span>
+              </Text>
             </Link>
           </li>
         ))}
       </ul>
-    </section>
+    </Section>
   );
 }
