@@ -7,6 +7,7 @@ import { Comp } from "@/routes/Comp";
 import { Goods } from "@/routes/Goods";
 import { About } from "@/routes/About";
 import { Dispatch } from "@/routes/Dispatch";
+import { PieceDemo } from "@/routes/PieceDemo";
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
           <Route path="/comp" element={<Comp />} />
           <Route path="/goods" element={<Goods />} />
           <Route path="/about" element={<About />} />
+          <Route path="/pieces/demo" element={<PieceDemo />} />
         </Route>
       </Routes>
     </BrowserRouter>

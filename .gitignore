@@ -12,3 +12,8 @@ dist-ssr
 .idea
 .vscode/*
 !.vscode/extensions.json
+
+# build / test artifacts
+storybook-static
+test-results
+playwright-report

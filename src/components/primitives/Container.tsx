@@ -1,22 +1,23 @@
+/**
+ * Compatibility adapter — the real `Container` lives in `@cq/ui`. Kept so
+ * existing `@/components/primitives/Container` imports resolve and the
+ * `design-system.sh` `prims` sub-check (an `export function Container`) stays
+ * green. Bridges the legacy `className` prop to `@cq/ui`'s `unsafe_className`.
+ */
 import type { ReactNode } from "react";
-import { cn } from "@/lib/utils";
-
-const widthClasses: Record<"narrow" | "default" | "wide", string> = {
-  narrow:  "max-w-[820px]",
-  default: "max-w-[1280px]",
-  wide:    "max-w-[1600px]",
-};
+import { Container as UiContainer, type ContainerWidth } from "@cq/ui";
 
 interface ContainerProps {
-  width?: "narrow" | "default" | "wide";
+  width?: ContainerWidth;
   children: ReactNode;
+  /** Legacy escape hatch — forwarded to @cq/ui's `unsafe_className`. */
   className?: string;
 }
 
-export function Container({ width = "default", children, className }: ContainerProps) {
+export function Container({ width, children, className }: ContainerProps) {
   return (
-    <div className={cn("mx-auto w-full px-6 md:px-10", widthClasses[width], className)}>
+    <UiContainer width={width} unsafe_className={className}>
       {children}
-    </div>
+    </UiContainer>
   );
 }

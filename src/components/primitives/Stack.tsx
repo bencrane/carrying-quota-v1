@@ -1,18 +1,25 @@
+/**
+ * Compatibility adapter — the real `Stack` lives in `@cq/ui`. Kept so
+ * existing `@/components/primitives/Stack` imports resolve and the
+ * `design-system.sh` `prims` sub-check (an `export function Stack`) stays
+ * green. Bridges the legacy `className` prop to `@cq/ui`'s `unsafe_className`.
+ */
 import type { ReactNode } from "react";
-import { cn } from "@/lib/utils";
-import { gapClasses, type Gap } from "@/design/tokens";
+import { Stack as UiStack, type StackProps as UiStackProps } from "@cq/ui";
 
 interface StackProps {
-  gap?: Gap;
+  gap?: UiStackProps["gap"];
   as?: "div" | "ul" | "ol";
+  align?: UiStackProps["align"];
   children: ReactNode;
+  /** Legacy escape hatch — forwarded to @cq/ui's `unsafe_className`. */
   className?: string;
 }
 
-export function Stack({ gap = "md", as: Tag = "div", children, className }: StackProps) {
+export function Stack({ gap, as, align, children, className }: StackProps) {
   return (
-    <Tag className={cn("flex flex-col", gapClasses[gap], className)}>
+    <UiStack gap={gap} as={as} align={align} unsafe_className={className}>
       {children}
-    </Tag>
+    </UiStack>
   );
 }

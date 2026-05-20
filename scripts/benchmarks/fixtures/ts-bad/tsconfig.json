@@ -1,0 +1,15 @@
+{
+  "//": "FIXTURE tsconfig — input to the cq-design-system-foundation benchmark (check P2). Compiles fixture.tsx, which passes an OFF-SCALE token value to a primitive's token-typed prop; `tsc --noEmit` MUST exit non-zero. @cq/ui + @cq/tokens resolve via the repo's node_modules workspace symlinks (the same path the app uses).",
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "typeRoots": ["../../../../node_modules/@types"]
+  },
+  "include": ["fixture.tsx"]
+}
