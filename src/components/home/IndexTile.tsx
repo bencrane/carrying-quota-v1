@@ -1,4 +1,8 @@
 import { Link } from "react-router";
+import { Section } from "@/components/primitives/Section";
+import { Text } from "@/components/primitives/Text";
+import { cn } from "@/lib/utils";
+import { typeClasses } from "@/design/tokens";
 
 interface IndexTileProps {
   label: string;         // "AE attainment · Q1 2026"
@@ -17,40 +21,44 @@ export function IndexTile({
 }: IndexTileProps) {
   const isDown = direction === "down";
   return (
-    <section className="border-b border-border px-6 py-12 md:px-10 md:py-16">
-      <div className="mb-6 font-mono text-[10px] uppercase tracking-[0.15em] text-accent">
-        ↳ The Index
+    <Section variant="elevated" gutter="default" divide="bottom">
+      <div className="mb-6">
+        <Text scale="caption" tone="accent" as="span">
+          ↳ The Index
+        </Text>
       </div>
       <div className="grid grid-cols-1 items-end gap-6 md:grid-cols-[auto_1fr_auto] md:gap-12">
         <div>
           <div className="flex items-baseline gap-4">
-            <span className="font-serif text-[64px] font-light leading-none tracking-[-0.035em] md:text-[88px]">
+            <Text scale="hero" as="span">
               {value}
-            </span>
+            </Text>
             <span
-              className={`font-mono text-[12px] tabular-nums ${
-                isDown
-                  ? "text-[hsl(var(--destructive))]"
-                  : "text-accent"
-              }`}
+              className={cn(
+                typeClasses.caption,
+                "tabular-nums",
+                isDown ? "text-[hsl(var(--destructive))]" : "text-accent"
+              )}
             >
               {isDown ? "▼" : "▲"} {change} YoY
             </span>
           </div>
-          <div className="mt-3 font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground">
-            {label}
+          <div className="mt-3">
+            <Text scale="caption" tone="muted" as="span" className="tracking-[0.12em]">
+              {label}
+            </Text>
           </div>
         </div>
-        <p className="max-w-[44ch] font-serif text-[15px] italic leading-[1.45] text-muted-foreground md:text-[17px]">
+        <Text scale="body" tone="muted" as="p" className="italic leading-[1.45]">
           {context}
-        </p>
+        </Text>
         <Link
           to="/index"
-          className="font-mono text-[10px] uppercase tracking-[0.12em] text-foreground transition-colors duration-200 hover:text-accent md:self-end"
+          className={cn(typeClasses.caption, "text-foreground transition-colors duration-200 hover:text-accent md:self-end")}
         >
           Open the dashboard →
         </Link>
       </div>
-    </section>
+    </Section>
   );
 }

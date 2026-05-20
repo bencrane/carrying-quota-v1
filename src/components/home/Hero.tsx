@@ -53,11 +53,9 @@ export function Hero({
             {headline}
           </Text>
 
-          <div className="mt-8 max-w-[52ch]">
-            <Text scale="lede">
-              {dek}
-            </Text>
-          </div>
+          <Text scale="lede" className="mt-8 block">
+            {dek}
+          </Text>
 
           <div className="mt-10">
             <SubscribeForm
