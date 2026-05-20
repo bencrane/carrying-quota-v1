@@ -1,6 +1,7 @@
 import type { HTMLAttributes } from "react";
 import { motion } from "motion/react";
-import { Grid, Stack, Cluster, Text, Eyebrow } from "@cq/ui";
+import { Link } from "react-router";
+import { Grid, Stack, Cluster, Text, Eyebrow, Figure } from "@cq/ui";
 // Section is imported from the compat path so design-system.sh's `adopt`
 // sub-check (which keys on this exact import path) stays green; the compat
 // module re-exports @cq/ui's Section.
@@ -95,7 +96,12 @@ export function Hero({
                 {chartCategory}
               </Text>
             </Cluster>
-            <LeadChart data={chartData} />
+            <Figure source="P75 OTE · representative sample, n=4,200 verified offers">
+              <LeadChart data={chartData} />
+            </Figure>
+            <Text scale="caption" tone="accent" as="p">
+              <Link to="/index">Open the full compensation index →</Link>
+            </Text>
           </Stack>
         </motion.div>
       </Grid>
