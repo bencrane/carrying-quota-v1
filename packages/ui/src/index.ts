@@ -70,12 +70,17 @@ export {
 } from "./motion/AppearOnMount.js";
 export { FadeIn, type FadeInProps } from "./motion/FadeIn.js";
 
-/* ── Data figures (the reference interactive figure) ─────────────────────── */
+/* ── Data figures (the interactive figure family) ────────────────────────── */
 export {
   CompCurveFigure,
   type CompCurveFigureProps,
   type CompDatum,
 } from "./figures/CompCurveFigure.js";
+export {
+  CompIndexTable,
+  type CompIndexTableProps,
+  type CompIndexDatum,
+} from "./figures/CompIndexTable.js";
 
 /* ── Demo piece (the embed-contract proof fixture) ───────────────────────── */
 export { DemoPiece } from "./pieces/DemoPiece.js";
