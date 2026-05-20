@@ -233,7 +233,7 @@ else
   UI_BUILD_OK=1
   if node -e "try{const s=require('${REPO_ROOT}/packages/ui/package.json').scripts||{};process.exit(s.build?0:1)}catch(e){process.exit(1)}" 2>/dev/null; then
     ( cd packages/ui && npm run build ) >"${TMP}/ui-build.log" 2>&1 || UI_BUILD_OK=0
-    [ $UI_BUILD_OK -ne 0 ] && { echo "[P1] packages/ui build failed" >&2; cat "${TMP}/ui-build.log" >&2; }
+    [ $UI_BUILD_OK -eq 0 ] && { echo "[P1] packages/ui build failed" >&2; cat "${TMP}/ui-build.log" >&2; }
   fi
   # the app resolves an import of the package by name (grep src for it).
   APP_IMPORTS=$(grep -rEl "from ['\"]${UI_PKG_NAME}(/[^'\"]*)?['\"]" src 2>/dev/null | head -1)
@@ -241,7 +241,7 @@ else
     echo "[P1] app package.json does not depend on '${UI_PKG_NAME}'" >&2
   elif [ -z "$APP_IMPORTS" ]; then
     echo "[P1] no src file imports from '${UI_PKG_NAME}'" >&2
-  elif [ $UI_BUILD_OK -ne 0 ]; then
+  elif [ $UI_BUILD_OK -eq 0 ]; then
     : # already logged
   else
     # the production build already succeeded above (R1_BUILD=1), which proves
